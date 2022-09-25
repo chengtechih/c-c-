@@ -1,0 +1,18 @@
+string num = textbox.Text.Trim();
+            string msg = string.Empty;
+            List<char> chars = new List<char>();
+            foreach (char n in num)
+            {
+                if (chars.Contains(n))
+                {
+                    continue;
+                }
+                chars.Add(n);
+                int count = num.Split(n).Length - 1;
+                if (count >= 1)
+                {
+                    msg += $"{n}:{count}\n";
+                    continue;
+                }
+            }
+            MessageBox.Show(msg);
