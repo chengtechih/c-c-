@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace WpfApp1
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void textbox0_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            char[] charSeperators = { ' ', ',', '.' };
+            //string testString = "a,a,a,b,,.b c.c a.a,d a c,c,b, b  c";
+            string testString = textbox0.Text;
+            string[] result;
+            int[] count = new int[26];
+            const int ASCII_a = 97;
+            const int ASCII_z = 122;
+
+            result =testString.Split(charSeperators,StringSplitOptions.RemoveEmptyEntries);
+            foreach (string s in result)
+            {
+                if(s.Length == 1)
+                {
+                    char c=s[0];
+                    int ascii=Convert.ToInt32(c);
+                    if (ascii >= ASCII_a && ascii <= ASCII_z) count[ascii - ASCII_a]++;
+                }
+            }
+            string outputString = "";
+            for(int i = 0; i < count.Length; i++)
+            {
+                if(count[i] != 0)
+                {
+                    char c = Convert.ToChar(i + ASCII_a);
+                    string alphabet = Convert.ToString(c);
+                    outputString += $"{alphabet}:{count[i]}\n";
+                }
+            }
+            outputlabel.Content = outputString;
+        }
+    }
+}
